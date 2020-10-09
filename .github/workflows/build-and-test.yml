@@ -32,3 +32,5 @@ jobs:
             - name: Test
               shell: pwsh
               run: dotnet test -f ${{matrix.options.framework}}
+              env:
+                  COREHOST_TRACE: '1'
