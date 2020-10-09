@@ -13,9 +13,9 @@ jobs:
             matrix:
                 options:
                     - os: ubuntu-latest
-                      framework: netcoreapp2.1
+                      framework: netcoreapp3.1
                     - os: windows-latest
-                      framework: netcoreapp2.1
+                      framework: netcoreapp3.1
 
         runs-on: ${{matrix.options.os}}
 
@@ -34,3 +34,4 @@ jobs:
               run: dotnet test -f ${{matrix.options.framework}}
               env:
                   COREHOST_TRACE: '1'
+                  COREHOST_TRACE_VERBOSITY: '4'
