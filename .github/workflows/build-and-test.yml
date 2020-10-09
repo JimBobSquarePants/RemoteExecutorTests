@@ -3,10 +3,10 @@ name: Build
 on:
     push:
         branches:
-            - master
+            - main
     pull_request:
         branches:
-            - master
+            - main
 jobs:
     Build:
         strategy:
@@ -14,12 +14,8 @@ jobs:
                 options:
                     - os: ubuntu-latest
                       framework: netcoreapp2.1
-                      runtime: -x64
-                      codecov: false
                     - os: windows-latest
                       framework: netcoreapp2.1
-                      runtime: -x64
-                      codecov: false
 
         runs-on: ${{matrix.options.os}}
 
