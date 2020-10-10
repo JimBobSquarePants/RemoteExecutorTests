@@ -17,7 +17,7 @@ namespace ExecutorTest
         }
 
         [Fact]
-        public void ShouldThrow()
+        public void CaptureInfo()
         {
             var tracePath = Path.Combine(Path.GetTempPath(), $"remoteexecutor{DateTime.Now:yyyyMMdd}.txt");
             Assert.True(RemoteExecutor.IsSupported);
@@ -26,15 +26,23 @@ namespace ExecutorTest
             psi.Environment[$"COREHOST_TRACE"] = "1";
             psi.Environment[$"COREHOST_TRACEFILE"] = tracePath;
 
-            //Assert.Throws<RemoteExecutionException>(() =>
-                RemoteExecutor.Invoke(() => Assert.True(false),
-                 new RemoteInvokeOptions
-                 {
-                     StartInfo = psi
-                 }).Dispose();
-            //);
+            RemoteExecutor.Invoke(() => Assert.True(true),
+             new RemoteInvokeOptions
+             {
+                 StartInfo = psi
+             }).Dispose();
 
             output.WriteLine(File.ReadAllText(tracePath));
+        }
+
+        [Fact]
+        public void ShouldThrow()
+        {
+            Assert.True(RemoteExecutor.IsSupported);
+
+            Assert.Throws<RemoteExecutionException>(() =>
+                RemoteExecutor.Invoke(() => Assert.True(false)).Dispose()
+            );
         }
 
         [Fact]
