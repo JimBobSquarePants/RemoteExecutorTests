@@ -26,13 +26,13 @@ namespace ExecutorTest
             psi.Environment[$"COREHOST_TRACE"] = "1";
             psi.Environment[$"COREHOST_TRACEFILE"] = tracePath;
 
-            Assert.Throws<RemoteExecutionException>(() =>
+            //Assert.Throws<RemoteExecutionException>(() =>
                 RemoteExecutor.Invoke(() => Assert.True(false),
                  new RemoteInvokeOptions
                  {
                      StartInfo = psi
-                 }).Dispose()
-            );
+                 }).Dispose();
+            //);
 
             output.WriteLine(File.ReadAllText(tracePath));
         }
