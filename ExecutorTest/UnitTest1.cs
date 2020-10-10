@@ -7,13 +7,11 @@ using Xunit.Abstractions;
 
 namespace ExecutorTest
 {
-    public class UnitTest1
+    public class UnitTest1 : XunitContextBase
     {
-        private readonly ITestOutputHelper output;
-
         public UnitTest1(ITestOutputHelper output)
+            : base(output)
         {
-            this.output = output;
         }
 
         [Fact]
@@ -23,8 +21,8 @@ namespace ExecutorTest
             Assert.True(RemoteExecutor.IsSupported);
 
             var psi = new ProcessStartInfo();
-            psi.Environment[$"COREHOST_TRACE"] = "1";
-            psi.Environment[$"COREHOST_TRACEFILE"] = tracePath;
+            psi.Environment["COREHOST_TRACE"] = "1";
+            psi.Environment["COREHOST_TRACEFILE"] = tracePath;
 
             RemoteExecutor.Invoke(() => Assert.True(true),
              new RemoteInvokeOptions
@@ -32,7 +30,7 @@ namespace ExecutorTest
                  StartInfo = psi
              }).Dispose();
 
-            output.WriteLine(File.ReadAllText(tracePath));
+            this.WriteLine(File.ReadAllText(tracePath));
         }
 
         [Fact]
