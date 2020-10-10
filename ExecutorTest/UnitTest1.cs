@@ -30,6 +30,7 @@ namespace ExecutorTest
                  StartInfo = psi
              }).Dispose();
 
+            this.WriteLine("Trace");
             this.WriteLine(File.ReadAllText(tracePath));
         }
 
